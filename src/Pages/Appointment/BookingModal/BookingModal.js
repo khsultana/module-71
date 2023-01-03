@@ -1,21 +1,89 @@
-import React from 'react';
+import { format } from "date-fns/esm";
+import React from "react";
 
-const BookingModal = () => {
-    return (
-        <>
+const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
+  const handleBooked = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const slot = form.slot.value;
 
+    const booking = {
+      appointmentDate: date,
+      treatmentName: name,
+      patientName: name,
+      email,
+      phone,
+      slot,
+    };
 
-            {/* Put this part before </body> tag */}
-            <input type="checkbox" id="bookingModal" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box relative">
-                    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                </div>
-            </div>
-        </>
-    );
+    console.log(booking);
+    setTreatment(null);
+  };
+
+  const date = format(selectedDate, "PP");
+  const { name, slots } = treatment;
+  return (
+    <>
+      <input type="checkbox" id="bookingModal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative">
+          <label
+            htmlFor="bookingModal"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          <h3 className="text-lg font-bold"> {name}</h3>
+          <form
+            onSubmit={handleBooked}
+            className="grid grid-cols-1 gap-4 mt-10"
+          >
+            <input
+              name="date"
+              type="text"
+              value={date}
+              disabled
+              className="input input-bordered input-error w-full "
+            />
+            <select name="slot" className="select select-secondary w-full  ">
+              {slots.map((slot, index) => (
+                <option value={slot} key={index}>
+                  {slot}
+                </option>
+              ))}
+            </select>
+            <input
+              name="name"
+              placeholder="Your Name"
+              type="text"
+              className="input input-bordered input-error w-full "
+            />
+            <input
+              name="email"
+              placeholder="Your Email Here"
+              type="email"
+              className="input input-bordered input-error w-full "
+            />
+            <input
+              name="phone"
+              placeholder="Your Phone Number Here"
+              type="number"
+              className="input input-bordered input-error w-full "
+            />
+            <br />
+            <input
+              className="w-full  btn btn-accent"
+              type="submit"
+              value="Submit"
+            />
+          </form>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default BookingModal;
