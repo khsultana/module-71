@@ -23,7 +23,7 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
-                {...register("email", { required: "Email is Required" })}
+                {...register("name", { required: "Name is Required" })}
                 className="input input-bordered w-full max-w-xs"
               />
             </div>
@@ -33,7 +33,7 @@ const SignUp = () => {
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
                 {...register("email", { required: "Email is Required" })}
                 className="input input-bordered w-full max-w-xs"
               />
